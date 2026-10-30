@@ -1,0 +1,1231 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Atha — Digital Portfolio</title>
+  
+  <style>
+    /* ==========================================================================
+       1. VARIABLES & THEMING
+       ========================================================================== */
+    :root {
+      --site-primary: #c9f36a;
+      --site-on-primary: #17200d;
+      --site-secondary: #20251f;
+      --site-on-secondary: #f3f2eb;
+      --site-background: #f3f2eb;
+      --site-on-background: #20251f;
+      --site-font-body: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --site-font-heading: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      
+      --ink: #20251f;
+      --paper: #f3f2eb;
+      --muted: #6d7168;
+      --line: #d8d9cf;
+      --lime: #c9f36a;
+      --dark: #20251f;
+      --white: #fffef9;
+    }
+
+    /* ==========================================================================
+       2. BASE & RESET
+       ========================================================================== */
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: light-dark(var(--paper), #191c18);
+      color: light-dark(var(--ink), #f3f2eb);
+      font-family: var(--site-font-body);
+      transition: background 0.25s, color 0.25s;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    /* ==========================================================================
+       3. LAYOUT & CONTAINERS
+       ========================================================================== */
+    .app {
+      background-color: var(--site-background);
+      color: var(--site-on-background);
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    .wrap {
+      width: min(1160px, calc(100% - 48px));
+      margin: auto;
+    }
+
+    section {
+      scroll-margin-top: 30px;
+    }
+
+    .section {
+      padding: 90px 0;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 24px;
+      margin-bottom: 34px;
+    }
+
+    /* ==========================================================================
+       4. TYPOGRAPHY & BUTTONS
+       ========================================================================== */
+    .kicker {
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #7c8075;
+      font-weight: 800;
+    }
+
+    .section h2 {
+      font-size: clamp(35px, 5vw, 58px);
+      line-height: 1;
+      letter-spacing: -0.065em;
+      margin: 13px 0 0;
+    }
+
+    .section-intro {
+      max-width: 370px;
+      line-height: 1.7;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .btn {
+      border: 1px solid var(--ink);
+      padding: 14px 19px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 750;
+      font-size: 13px;
+      transition: transform 0.2s, background 0.2s;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+    }
+
+    .btn.primary {
+      background: var(--lime);
+      border-color: var(--lime);
+    }
+
+    .btn.secondary {
+      background: transparent;
+    }
+
+    .arrow {
+      font-size: 17px;
+    }
+
+    /* ==========================================================================
+       5. NAVIGATION
+       ========================================================================== */
+    .nav {
+      height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--line);
+      position: relative;
+      z-index: 4;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 850;
+      letter-spacing: -0.04em;
+    }
+
+    .brand-mark {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: var(--dark);
+      color: var(--lime);
+      font-weight: 900;
+      font-size: 17px;
+    }
+
+    .navlinks {
+      display: flex;
+      gap: 30px;
+      font-size: 13px;
+      color: #60645b;
+    }
+
+    .navlinks a:hover {
+      color: #111;
+    }
+
+    .navright {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .availability {
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      color: #54594f;
+    }
+
+    .dot {
+      height: 7px;
+      width: 7px;
+      background: #68a84a;
+      border-radius: 50%;
+      box-shadow: 0 0 0 4px #68a84a20;
+    }
+
+    .menu-btn {
+      display: none;
+      background: none;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      height: 40px;
+      width: 40px;
+    }
+
+    /* ==========================================================================
+       6. HERO SECTION
+       ========================================================================== */
+    .hero {
+      padding: 76px 0 64px;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 52px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-weight: 800;
+      color: #777b70;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .eyebrow:before {
+      content: '';
+      width: 24px;
+      height: 2px;
+      background: var(--ink);
+    }
+
+    h1 {
+      font-size: clamp(56px, 7.8vw, 100px);
+      line-height: 0.91;
+      letter-spacing: -0.085em;
+      margin: 25px 0 26px;
+      font-weight: 850;
+    }
+
+    h1 .outline {
+      color: transparent;
+      -webkit-text-stroke: 1.5px var(--ink);
+    }
+
+    .hero-copy {
+      font-size: 16px;
+      line-height: 1.8;
+      color: #65695f;
+      max-width: 500px;
+    }
+
+    .hero-copy strong {
+      color: var(--ink);
+    }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 30px;
+    }
+
+    .hero-art {
+      position: relative;
+      min-height: 400px;
+      background: #dce9ce;
+      border-radius: 24px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-art img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* ==========================================================================
+       7. MARQUEE SECTION
+       ========================================================================== */
+    .marquee {
+      background: var(--dark);
+      color: #e9ebdf;
+      padding: 17px 0;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .marquee-inner {
+      display: flex;
+      width: max-content;
+      animation: marquee 28s linear infinite;
+      gap: 25px;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-weight: 750;
+    }
+
+    .marquee b {
+      color: var(--lime);
+      font-size: 17px;
+    }
+
+    @keyframes marquee {
+      to {
+        transform: translateX(-50%);
+      }
+    }
+
+    /* ==========================================================================
+       8. ABOUT SECTION
+       ========================================================================== */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 0.85fr 1.15fr;
+      gap: 60px;
+      align-items: start;
+    }
+
+    .about-card {
+      background: var(--lime);
+      border-radius: 20px;
+      padding: 27px;
+      min-height: 280px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .about-card .big {
+      font-size: 64px;
+      font-weight: 850;
+      letter-spacing: -0.08em;
+      line-height: 0.95;
+    }
+
+    .about-card p {
+      max-width: 240px;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .about-text {
+      font-size: 18px;
+      line-height: 1.85;
+      letter-spacing: -0.02em;
+    }
+
+    .about-text p {
+      margin-top: 0;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 24px;
+    }
+
+    .chip {
+      border: 1px solid #c9cbc0;
+      border-radius: 99px;
+      padding: 9px 13px;
+      font-size: 12px;
+      color: #52564d;
+    }
+
+    /* ==========================================================================
+       9. PROJECTS SECTION
+       ========================================================================== */
+    .projects {
+      background: #e8e9df;
+    }
+
+    .filters {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 25px;
+    }
+
+    .filter {
+      border: 1px solid #c7c9be;
+      background: transparent;
+      padding: 10px 15px;
+      border-radius: 99px;
+      font-size: 12px;
+      cursor: pointer;
+      color: #5c6056;
+    }
+
+    .filter.active,
+    .filter:hover {
+      background: var(--dark);
+      color: white;
+      border-color: var(--dark);
+    }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .project {
+      background: var(--white);
+      border-radius: 18px;
+      overflow: hidden;
+      transition: transform 0.25s, box-shadow 0.25s;
+      cursor: pointer;
+    }
+
+    .project:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px #20251f13;
+    }
+
+    .project[hidden] {
+      display: none;
+    }
+
+    .project-art {
+      height: 280px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #111;
+    }
+
+    .project-art img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+
+    .project:hover .project-art img {
+      transform: scale(1.03);
+    }
+
+    /* Project Meta */
+    .project-meta {
+      padding: 21px 22px 22px;
+    }
+
+    .project-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .project-top h3 {
+      margin: 0;
+      font-size: 19px;
+      letter-spacing: -0.04em;
+    }
+
+    .project-top span {
+      font-size: 10px;
+      color: #777b70;
+      border: 1px solid #e0e1d8;
+      border-radius: 99px;
+      padding: 6px 9px;
+    }
+
+    .project-meta p {
+      font-size: 13px;
+      color: #74776e;
+      line-height: 1.6;
+      margin: 11px 0 0;
+    }
+
+    .project-link {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 16px;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .project-link b {
+      font-size: 18px;
+    }
+
+    /* ==========================================================================
+       10. SKILLS SECTION
+       ========================================================================== */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 13px;
+    }
+
+    .skill {
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      padding: 23px;
+      min-height: 185px;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .skill:hover {
+      background: #e8e9df;
+      transform: translateY(-3px);
+    }
+
+    .skill-icon {
+      width: 39px;
+      height: 39px;
+      border-radius: 12px;
+      background: var(--lime);
+      display: grid;
+      place-items: center;
+      font-size: 19px;
+      margin-bottom: 25px;
+    }
+
+    .skill h3 {
+      margin: 0 0 8px;
+      font-size: 16px;
+      letter-spacing: -0.03em;
+    }
+
+    .skill p {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.65;
+      margin: 0;
+    }
+
+    /* ==========================================================================
+       11. JOURNEY SECTION
+       ========================================================================== */
+    .journey {
+      background: var(--dark);
+      color: #f5f4ec;
+    }
+
+    .journey .section-intro,
+    .journey .kicker {
+      color: #b8bcb1;
+    }
+
+    .timeline {
+      border-top: 1px solid #4b5147;
+      margin-top: 34px;
+    }
+
+    .time-row {
+      display: grid;
+      grid-template-columns: 160px 1fr auto;
+      gap: 20px;
+      align-items: start;
+      padding: 24px 0;
+      border-bottom: 1px solid #4b5147;
+    }
+
+    .time-year {
+      font-size: 12px;
+      color: #b8bcb1;
+      padding-top: 4px;
+    }
+
+    .time-row h3 {
+      margin: 0 0 7px;
+      font-size: 20px;
+      letter-spacing: -0.04em;
+    }
+
+    .time-row p {
+      margin: 0;
+      color: #b8bcb1;
+      font-size: 13px;
+      line-height: 1.6;
+      max-width: 550px;
+    }
+
+    .time-tag {
+      color: var(--lime);
+      font-size: 11px;
+      border: 1px solid #58604e;
+      border-radius: 99px;
+      padding: 7px 10px;
+    }
+
+    /* ==========================================================================
+       12. CONTACT & FOOTER
+       ========================================================================== */
+    .contact {
+      padding: 95px 0 50px;
+    }
+
+    .contact-box {
+      background: var(--lime);
+      padding: clamp(28px, 6vw, 68px);
+      border-radius: 24px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 30px;
+      align-items: flex-end;
+    }
+
+    .contact h2 {
+      font-size: clamp(45px, 7vw, 82px);
+      line-height: 0.95;
+      letter-spacing: -0.08em;
+      margin: 15px 0 20px;
+    }
+
+    .contact p {
+      max-width: 450px;
+      line-height: 1.7;
+      color: #4c5840;
+      font-size: 14px;
+    }
+
+    .contact .btn {
+      background: var(--dark);
+      color: white;
+      border-color: var(--dark);
+      white-space: nowrap;
+    }
+
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 25px 0 32px;
+      font-size: 11px;
+      color: #777b70;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 18px;
+    }
+
+    .footer a:hover {
+      color: var(--ink);
+    }
+
+    /* ==========================================================================
+       13. UI COMPONENTS (Toast, Modal, Reveal Animation)
+       ========================================================================== */
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translate(-50%, 20px);
+      opacity: 0;
+      pointer-events: none;
+      background: var(--dark);
+      color: white;
+      padding: 13px 18px;
+      border-radius: 99px;
+      font-size: 12px;
+      z-index: 10;
+      transition: 0.25s;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.7s, transform 0.7s;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: #111a;
+      z-index: 20;
+      display: none;
+      place-items: center;
+      padding: 20px;
+    }
+
+    .modal-card {
+      max-width: 480px;
+      width: 100%;
+      background: var(--site-background);
+      color: var(--site-on-background);
+      padding: 28px;
+      border-radius: 20px;
+      position: relative;
+    }
+
+    .modal-close {
+      position: absolute;
+      right: 18px;
+      top: 15px;
+      border: 1px solid var(--line);
+      background: transparent;
+      border-radius: 50%;
+      width: 34px;
+      height: 34px;
+      cursor: pointer;
+    }
+
+    /* ==========================================================================
+       14. MEDIA QUERIES (DARK MODE & RESPONSIVE)
+       ========================================================================== */
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --site-background: #191c18;
+        --site-on-background: #f3f2eb;
+        --ink: #f3f2eb;
+        --paper: #191c18;
+        --muted: #b8bcb1;
+        --line: #393e36;
+        --white: #252a23;
+      }
+
+      .navlinks { color: #c0c4b9; }
+      .navlinks a:hover { color: white; }
+      .hero-copy { color: #b8bcb1; }
+      .hero-copy strong { color: #f3f2eb; }
+      .hero-art { background: #384331; }
+      .projects { background: #222720; }
+      .project { background: #292e27; }
+      .project-meta p, .project-top span { color: #b8bcb1; }
+      .project-top span { border-color: #42473f; }
+      .filter { color: #c3c6bc; border-color: #4b5147; }
+      .filter.active, .filter:hover { background: #f3f2eb; color: #20251f; }
+      .about-card { color: #20251f; }
+      .about-text { color: #e1e3d9; }
+      .chip { color: #d3d6cc; border-color: #4b5147; }
+      .skill:hover { background: #292e27; }
+      .section-intro, .skill p { color: #b8bcb1; }
+      .kicker { color: #a7ac9f; }
+      .eyebrow { color: #b8bcb1; }
+      .eyebrow:before { background: #f3f2eb; }
+      .hero h1 .outline { -webkit-text-stroke-color: #f3f2eb; }
+      .btn.secondary { border-color: #f3f2eb; }
+      .footer { color: #a7ac9f; }
+      .footer a:hover { color: white; }
+    }
+
+    @media (max-width: 760px) {
+      .wrap { width: min(100% - 32px, 560px); }
+      .nav { height: 68px; }
+      .navlinks {
+        display: none;
+        position: absolute;
+        top: 67px;
+        left: 0;
+        right: 0;
+        background: var(--site-background);
+        padding: 20px;
+        border: 1px solid var(--line);
+        border-radius: 0 0 14px 14px;
+        flex-direction: column;
+        gap: 18px;
+      }
+      .navlinks.open { display: flex; }
+      .menu-btn { display: block; }
+      .availability { display: none; }
+      .hero { grid-template-columns: 1fr; gap: 32px; padding: 55px 0 45px; }
+      .hero h1 { font-size: clamp(60px, 15vw, 90px); }
+      .hero-art { min-height: 380px; }
+      .section { padding: 65px 0; }
+      .section-head { align-items: flex-start; flex-direction: column; gap: 14px; }
+      .about-grid { grid-template-columns: 1fr; gap: 22px; }
+      .about-card { min-height: 230px; }
+      .project-grid { grid-template-columns: 1fr; }
+      .project-art { height: 260px; }
+      .skills-grid { grid-template-columns: 1fr 1fr; }
+      .skill { padding: 18px; min-height: 175px; }
+      .time-row { grid-template-columns: 85px 1fr; gap: 13px; }
+      .time-tag { grid-column: 2; justify-self: start; }
+      .contact-box { grid-template-columns: 1fr; align-items: flex-start; }
+      .contact .btn { justify-self: start; }
+      .footer { gap: 18px; align-items: flex-start; flex-direction: column; }
+      .footer-links { flex-wrap: wrap; }
+      .section h2 { font-size: 43px; }
+    }
+
+    @media (max-width: 390px) {
+      .skills-grid { grid-template-columns: 1fr; }
+      .project-top { align-items: flex-start; flex-direction: column; }
+      .hero-art { min-height: 310px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <!-- Header / Navigation -->
+    <header class="wrap nav">
+      <a class="brand" href="#home">
+        <span class="brand-mark">A.</span>
+        <span>ATHA HERLAMBANG<span style="color:#8a8e83"> / PORTFOLIO</span></span>
+      </a>
+      <nav class="navlinks" id="navlinks">
+        <a href="#about">Tentang</a>
+        <a href="#projects">Proyek</a>
+        <a href="#skills">Keahlian</a>
+        <a href="#journey">Perjalanan</a>
+        <a href="#contact">Kontak</a>
+      </nav>
+      <div class="navright">
+        <span class="availability"><i class="dot"></i> Open to opportunities</span>
+        <button class="menu-btn" id="menuBtn" aria-label="Buka menu">☰</button>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="wrap hero" id="home">
+      <div class="reveal">
+        <div class="eyebrow">Mahasiswa Sistem Informasi · UNESA</div>
+        <h1>Design<br>meets <span class="outline">digital.</span></h1>
+        <p class="hero-copy">Halo, aku Atha. Aku suka mengeksplorasi persimpangan antara <strong>desain, teknologi, dan cara orang berinteraksi dengan produk digital.</strong> Bagiku, hal keren bukan cuma yang terlihat bagus, tapi juga yang benar-benar berguna.</p>
+        <div class="actions">
+          <a class="btn primary" href="#projects">Jelajahi karyaku <span class="arrow">↘</span></a>
+          <a class="btn secondary" href="#about">Kenalan dulu <span class="arrow">↗</span></a>
+        </div>
+      </div>
+      <div class="hero-art reveal" aria-label="Foto Muhammad Atha Herlambang">
+        <img src="atha.jpg" alt="Muhammad Atha Herlambang">
+      </div>
+    </section>
+
+    <!-- Marquee Banner -->
+    <div class="marquee" aria-label="Bidang yang diminati">
+      <div class="marquee-inner">
+        <span>DESIGN WITH PURPOSE</span><b>✳</b>
+        <span>BUILD DIGITAL EXPERIENCES</span><b>✳</b>
+        <span>STAY CURIOUS</span><b>✳</b>
+        <span>LEARN BY MAKING</span><b>✳</b>
+        <span>DESIGN WITH PURPOSE</span><b>✳</b>
+        <span>BUILD DIGITAL EXPERIENCES</span><b>✳</b>
+        <span>STAY CURIOUS</span><b>✳</b>
+        <span>LEARN BY MAKING</span><b>✳</b>
+      </div>
+    </div>
+
+    <!-- About Section -->
+    <section class="wrap section" id="about">
+      <div class="section-head reveal">
+        <div>
+          <div class="kicker">01 / A little about me</div>
+          <h2>Bukan cuma soal<br>tampilan.</h2>
+        </div>
+        <p class="section-intro">Aku percaya desain dan teknologi bisa saling melengkapi untuk menciptakan pengalaman yang lebih baik.</p>
+      </div>
+      <div class="about-grid">
+        <div class="about-card reveal">
+          <div class="big">Curious<br>by design<span style="color:#667c3f">.</span></div>
+          <p>Senang mengamati, mencoba hal baru, dan mencari cara agar ide bisa diwujudkan.</p>
+          <div style="font-size:11px; font-weight:800; letter-spacing:.12em">SIDOARJO, INDONESIA ↗</div>
+        </div>
+        <div class="about-text reveal">
+          <p>Perjalananku dimulai dari <strong>Desain Komunikasi Visual (DKV)</strong>, tempat aku belajar menerjemahkan ide menjadi visual, membangun identitas, dan menyampaikan pesan.</p>
+          <p>Sekarang, sebagai mahasiswa <strong>Sistem Informasi di Universitas Negeri Surabaya</strong>, aku ingin melangkah lebih jauh: memahami bagaimana produk digital dirancang, bagaimana sistem dan data bekerja, serta bagaimana teknologi bisa menyelesaikan masalah nyata.</p>
+          <p>Aku masih dalam proses belajar—dan justru itu yang membuatku bersemangat. Aku ingin menggabungkan kepekaan visual dengan pola pikir sistematis untuk membuat sesuatu yang punya tujuan.</p>
+          <div class="chips">
+            <span class="chip">Visual thinking</span>
+            <span class="chip">UI/UX exploration</span>
+            <span class="chip">Digital products</span>
+            <span class="chip">Information systems</span>
+            <span class="chip">Always learning</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="projects section" id="projects">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div>
+            <div class="kicker">02 / Selected works</div>
+            <h2>Things I've<br>made & explored.</h2>
+          </div>
+          <p class="section-intro">Beberapa jenis proyek yang mewakili proses belajarku dari visual, branding, hingga eksplorasi produk digital.</p>
+        </div>
+
+        <!-- Filters -->
+        <div class="filters reveal" role="group" aria-label="Filter proyek">
+          <button class="filter active" data-filter="all">Semua karya · 7</button>
+          <button class="filter" data-filter="product">UI/UX & product</button>
+          <button class="filter" data-filter="design">Visual design</button>
+          <button class="filter" data-filter="media">Media & campaign</button>
+        </div>
+
+        <!-- Project Cards -->
+        <div class="project-grid">
+          <!-- 1. SubGo (UI/UX Mobile App) -->
+          <article class="project reveal" data-category="product" tabindex="0" data-title="SubGo Mobile App" data-detail="Eksplorasi antarmuka aplikasi seluler pemesanan makanan cepat saji dengan tata letak yang bersih, hierarki visual yang jelas, dan navigasi yang ramah pengguna.">
+            <div class="project-art">
+              <img src="subgo.png" alt="SubGo Mobile App">
+            </div>
+            <div class="project-meta">
+              <div class="project-top">
+                <h3>SubGo Mobile App</h3>
+                <span>UI/UX · Mobile</span>
+              </div>
+              <p>Desain antarmuka aplikasi pemesanan makanan dengan fokus pada kemudahan pengalaman pengguna.</p>
+              <div class="project-link"><span>UI/UX design</span><b>↗</b></div>
+            </div>
+          </article>
+
+          <!-- 2. Livera (UI/UX App) -->
+          <article class="project reveal" data-category="product" tabindex="0" data-title="Livera Lounge App" data-detail="Konsep desain aplikasi belanja furnitur dan dekorasi rumah dengan pendekatan estetis, modern, serta kemudahan proses eksplorasi katalog produk.">
+            <div class="project-art">
+              <img src="livera.png" alt="Livera Lounge App">
+            </div>
+            <div class="project-meta">
+              <div class="project-top">
+                <h3>Livera Lounge App</h3>
+                <span>UI/UX · Mobile</span>
+              </div>
+              <p>Eksplorasi antarmuka e-commerce produk interior dan perabotan rumah tangga.</p>
+              <div class="project-link"><span>UI/UX design</span><b>↗</b></div>
+            </div>
+          </article>
+
+          <!-- 3. Kimchi Daehan (Visual Design) -->
+          <article class="project reveal" data-category="design" tabindex="0" data-title="Kimchi Daehan Campaign" data-detail="Perancangan konten visual dan materi promosi media sosial untuk brand makanan khas Korea Kimchi Daehan dengan konsep warna yang atraktif dan komunikatif.">
+            <div class="project-art">
+              <img src="kimchi.png" alt="Kimchi Daehan Campaign">
+            </div>
+            <div class="project-meta">
+              <div class="project-top">
+                <h3>Kimchi Daehan</h3>
+                <span>Visual Design · Social Media</span>
+              </div>
+              <p>Desain grid feed interaktif dan kampanye digital bertema kuliner Korea.</p>
+              <div class="project-link"><span>Visual storytelling</span><b>↗</b></div>
+            </div>
+          </article>
+
+          <!-- 4. Rumah Risol (Visual Design) -->
+          <article class="project reveal" data-category="design" tabindex="0" data-title="Rumah Risol Content" data-detail="Materi visual dan panduan konten promosi harian untuk meningkatkan engagement brand kuliner lokal Rumah Risol dengan warna hangat yang membangkitkan selera.">
+            <div class="project-art">
+              <img src="risol.png" alt="Rumah Risol Content">
+            </div>
+            <div class="project-meta">
+              <div class="project-top">
+                <h3>Rumah Risol Content</h3>
+                <span>Visual Design · Branding</span>
+              </div>
+              <p>Pengembangan aset visual dan tata letak informasi produk camilan lokal.</p>
+              <div class="project-link"><span>Brand communication</span><b>↗</b></div>
+            </div>
+          </article>
+
+          <!-- 5. Kopi Kakaes (Visual Design) -->
+          <article class="project reveal" data-category="design" tabindex="0" data-title="Kopi Kakaes Visuals" data-detail="Eksplorasi visual dan layout promosi produk minuman kopi dengan estetika minimalis, bersih, serta bernuansa santai dan hangat.">
+            <div class="project-art">
+              <img src="kopi.png" alt="Kopi Kakaes Visuals">
+            </div>
+            <div class="project-meta">
+              <div class="project-top">
+                <h3>Kopi Kakaes Visuals</h3>
+                <span>Visual Design · F&B</span>
+              </div>
+              <p>Kurasi visual dan tata letak estetis untuk media promosi kedai kopi.</p>
+              <div class="project-link"><span>Aesthetic curation</span><b>↗</b></div>
+            </div>
+          </article>
+
+          <!-- 6. Dental Care (Visual Design) -->
+          <article class="project reveal" data-category="design" tabindex="0" data-title="Dental Care Infographics" data-detail="Desain infografis edukasi kesehatan gigi yang informatif, rapi, dan mudah dipahami audiens awam menggunakan tone warna segar khas medis.">
+            <div class="project-art">
+              <img src="dental.png" alt="Dental Care Infographics">
+            </div>
+            <div class="project-meta">
+              <div class="project-top">
+                <h3>Dental Care Infographics</h3>
+                <span>Visual Design · Education</span>
+              </div>
+              <p>Kampanye informasi kesehatan gigi dalam format visual grid yang terstruktur.</p>
+              <div class="project-link"><span>Information design</span><b>↗</b></div>
+            </div>
+          </article>
+
+          <!-- 7. Sahiba Tour / Umroh (Media & Campaign) -->
+          <article class="project reveal" data-category="media" tabindex="0" data-title="Sahiba Tour Umroh Campaign" data-detail="Perancangan materi kampanye, poster promosi paket, dan tips perjalanan ibadah umroh yang kredibel, tenang, dan rapi untuk calon jamaah.">
+            <div class="project-art">
+              <img src="umroh.png" alt="Sahiba Tour Umroh Campaign">
+            </div>
+            <div class="project-meta">
+              <div class="project-top">
+                <h3>Sahiba Tour Campaign</h3>
+                <span>Media · Travel Campaign</span>
+              </div>
+              <p>Desain tata letak promosi dan panduan informasi layanan perjalanan ibadah.</p>
+              <div class="project-link"><span>Campaign layout</span><b>↗</b></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="wrap section" id="skills">
+      <div class="section-head reveal">
+        <div>
+          <div class="kicker">03 / What I'm building</div>
+          <h2>Skills in progress.</h2>
+        </div>
+        <p class="section-intro">Fondasi yang sudah kupunya, hal yang sedang kupelajari, dan arah yang ingin terus kujelajahi.</p>
+      </div>
+      <div class="skills-grid">
+        <article class="skill reveal">
+          <div class="skill-icon">✳</div>
+          <h3>Visual & branding</h3>
+          <p>Komposisi, tipografi, desain grafis, identitas visual, dan komunikasi melalui gambar.</p>
+        </article>
+        <article class="skill reveal">
+          <div class="skill-icon">⌘</div>
+          <h3>UI/UX exploration</h3>
+          <p>Layout antarmuka, hierarki informasi, wireframe, dan mulai memahami kebutuhan pengguna.</p>
+        </article>
+        <article class="skill reveal">
+          <div class="skill-icon">▤</div>
+          <h3>Digital product thinking</h3>
+          <p>Menghubungkan masalah, kebutuhan pengguna, fitur, dan pengalaman produk.</p>
+        </article>
+        <article class="skill reveal">
+          <div class="skill-icon">⌘</div>
+          <h3>Information systems</h3>
+          <p>Mempelajari proses bisnis, sistem informasi, pengelolaan data, dan teknologi digital.</p>
+        </article>
+        <article class="skill reveal">
+          <div class="skill-icon">{ }</div>
+          <h3>Programming basics</h3>
+          <p>Sedang membangun dasar pemrograman dan logika untuk memahami cara kerja aplikasi.</p>
+        </article>
+        <article class="skill reveal">
+          <div class="skill-icon">↗</div>
+          <h3>Creative collaboration</h3>
+          <p>Pernah terlibat dalam alur kerja desain, koordinasi kebutuhan, dan produksi konten.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Journey Section -->
+    <section class="journey section" id="journey">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div>
+            <div class="kicker">04 / The journey so far</div>
+            <h2>Different roots.<br>One direction.</h2>
+          </div>
+          <p class="section-intro">Setiap pengalaman menambah perspektif baru—dan perjalanan ini masih berlanjut.</p>
+        </div>
+        <div class="timeline">
+          <div class="time-row reveal">
+            <div class="time-year">2023 — 2026</div>
+            <div>
+              <h3>Desain Komunikasi Visual</h3>
+              <p>Belajar dasar desain, branding, visual storytelling, produksi media, dan bekerja berdasarkan brief.</p>
+            </div>
+            <span class="time-tag">Creative foundation</span>
+          </div>
+          <div class="time-row reveal">
+            <div class="time-year">2025 — 2026</div>
+            <div>
+              <h3>Project & freelance experience</h3>
+              <p>Mengerjakan kebutuhan visual dan konten serta belajar beradaptasi dengan alur kerja dan kebutuhan klien.</p>
+            </div>
+            <span class="time-tag">Real-world practice</span>
+          </div>
+          <div class="time-row reveal">
+            <div class="time-year">2026 — now</div>
+            <div>
+              <h3>Sistem Informasi · UNESA</h3>
+              <p>Memperluas pemahaman ke sistem, data, teknologi, dan eksplorasi desain pengalaman produk digital.</p>
+            </div>
+            <span class="time-tag">New chapter</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="wrap contact" id="contact">
+      <div class="contact-box reveal">
+        <div>
+          <div class="kicker" style="color:#52613f">05 / Let's connect</div>
+          <h2>Got an idea?<br>Let's make it<br>matter.</h2>
+          <p>Aku terbuka untuk belajar, berkolaborasi, dan bertemu orang-orang yang tertarik membangun sesuatu yang bermanfaat.</p>
+        </div>
+        <a class="btn" href="mailto:athahrlmbngg@gmail.com" id="emailBtn">Say hello <span class="arrow">↗</span></a>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="wrap footer">
+      <span>© 2026 Atha Herlambang · Built with curiosity.</span>
+      <div class="footer-links">
+        <a href="#home">Back to top ↑</a>
+       <a href="https://www.linkedin.com/in/atha-herlambang-a81932356" target="_blank" rel="noreferrer">LinkedIn ↗</a>
+       <a href="https://wa.me/6281233665251" target="_blank" rel="noreferrer">WhatsApp ↗</a>
+      </div>
+    </footer>
+  </main>
+
+  <!-- Notification Toast -->
+  <div class="toast" id="toast" role="status"></div>
+
+  <!-- Project Details Modal -->
+  <div class="modal-overlay" id="modal">
+    <div class="modal-card">
+      <button class="modal-close" id="closeModal" aria-label="Tutup">✕</button>
+      <div class="kicker">PROJECT NOTE</div>
+      <h2 id="modalTitle" style="font-size:30px; letter-spacing:-.06em; margin:18px 0 12px"></h2>
+      <p id="modalText" style="font-size:14px; line-height:1.8; color:var(--muted)"></p>
+      <button class="btn primary" id="modalDone" style="margin-top:10px">Got it ↗</button>
+    </div>
+  </div>
+
+  <script>
+    // Navigation Menu Toggle
+    const menuBtn = document.getElementById('menuBtn');
+    const navlinks = document.getElementById('navlinks');
+
+    menuBtn.addEventListener('click', () => {
+      navlinks.classList.toggle('open');
+      menuBtn.textContent = navlinks.classList.contains('open') ? '✕' : '☰';
+    });
+
+    navlinks.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        navlinks.classList.remove('open');
+        menuBtn.textContent = '☰';
+      });
+    });
+
+    // Project Filtering
+    document.querySelectorAll('.filter').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.dataset.filter;
+        
+        document.querySelectorAll('.project').forEach(card => {
+          card.hidden = filter !== 'all' && card.dataset.category !== filter;
+        });
+      });
+    });
+
+    // Project Modal
+    const modal = document.getElementById('modal');
+
+    function openProject(card) {
+      document.getElementById('modalTitle').textContent = card.dataset.title;
+      document.getElementById('modalText').textContent = card.dataset.detail;
+      modal.style.display = 'grid';
+    }
+
+    document.querySelectorAll('.project').forEach(card => {
+      card.addEventListener('click', () => openProject(card));
+      card.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openProject(card);
+        }
+      });
+    });
+
+    function closeModal() {
+      modal.style.display = 'none';
+    }
+
+    document.getElementById('closeModal').addEventListener('click', closeModal);
+    document.getElementById('modalDone').addEventListener('click', closeModal);
+    modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+    // Scroll Reveal Animation (Intersection Observer)
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          obs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+    // Email Placeholder Toast Alert
+    document.getElementById('emailBtn').addEventListener('click', e => {
+      if (e.currentTarget.href.includes('your.email@example.com')) {
+        e.preventDefault();
+        const toast = document.getElementById('toast');
+        toast.textContent = 'Ganti email placeholder dengan alamat email aktifmu.';
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 3000);
+      }
+    });
+  </script>
+</body>
+</html>
